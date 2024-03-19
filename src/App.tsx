@@ -1,4 +1,3 @@
-import { useMemo, type FC, useState } from "react";
 import {
   Checkbox,
   ConfigProvider,
@@ -7,8 +6,10 @@ import {
   Table,
   Tag,
   Typography,
-} from "antd";
-import dayjs from "dayjs";
+} from 'antd';
+import dayjs from 'dayjs';
+import { useMemo, useState, type FC } from 'react';
+import data from './data.json';
 import {
   expandNumberScope,
   matchIncrementalNumber,
@@ -17,11 +18,10 @@ import {
   matchQuadraNumber,
   matchSearchKeyword,
   matchTripleNumber,
-} from "./utils";
-import data from "./data.json";
+} from './utils';
 
 export const App: FC = () => {
-  const [keyword, setKeyword] = useState("");
+  const [keyword, setKeyword] = useState('');
   const [isNumericOnly, setIsNumericOnly] = useState(false);
   const [isExcludeFour, setIsExcludeFour] = useState(false);
   const [isTripleNumber, setIsTripleNumber] = useState(false);
@@ -36,22 +36,22 @@ export const App: FC = () => {
           level: matchPentaNumber(key)
             ? 5
             : matchQuadraNumber(key)
-            ? 4
-            : matchTripleNumber(key)
-            ? 3
-            : matchIncrementalNumber(key)
-            ? 2
-            : 1,
-        }))
+              ? 4
+              : matchTripleNumber(key)
+                ? 3
+                : matchIncrementalNumber(key)
+                  ? 2
+                  : 1,
+        })),
       )
       .sort((a, b) => a.key.localeCompare(b.key))
       .filter(
         (item) =>
           matchSearchKeyword(item.key, keyword) &&
           (isNumericOnly ? matchNumberOnly(item.key) : true) &&
-          (isExcludeFour ? !item.key.includes("4") : true) &&
+          (isExcludeFour ? !item.key.includes('4') : true) &&
           (isTripleNumber ? item.level >= 3 : true) &&
-          (isIncrementalNumber ? item.level === 2 : true)
+          (isIncrementalNumber ? item.level === 2 : true),
       );
   }, [
     keyword,
@@ -110,32 +110,32 @@ export const App: FC = () => {
         )}
         columns={[
           {
-            title: "号牌",
-            dataIndex: "key",
+            title: '号牌',
+            dataIndex: 'key',
             render: (value, record) => (
               <Tag
                 style={{
-                  fontFamily: "monospace",
+                  fontFamily: 'monospace',
                   fontSize: 14 + 4 * record.level,
-                  cursor: "pointer",
+                  cursor: 'pointer',
                 }}
                 bordered={false}
-                color={record.type.includes("新能源") ? "green" : "blue"}
+                color={record.type.includes('新能源') ? 'green' : 'blue'}
               >
-                {value.split("").join(" ")}
+                {value.split('').join(' ')}
               </Tag>
             ),
           },
-          { title: "牌证发放机关", dataIndex: "office" },
-          { title: "号牌种类", dataIndex: "type" },
+          { title: '牌证发放机关', dataIndex: 'office' },
+          { title: '号牌种类', dataIndex: 'type' },
           {
-            title: "投放日期",
-            dataIndex: "time",
+            title: '投放日期',
+            dataIndex: 'time',
             render: (value) => {
               return (
                 <span
                   style={{
-                    opacity: (100 - dayjs().diff(dayjs(value), "days")) / 100,
+                    opacity: (100 - dayjs().diff(dayjs(value), 'days')) / 100,
                   }}
                 >
                   {value.slice(0, 10)}
