@@ -1,50 +1,67 @@
+import { useSize } from "ahooks";
 import {
 	Checkbox,
 	ConfigProvider,
+	Divider,
 	Flex,
 	Input,
+	Layout,
 	Table,
-	Tag,
 	Typography,
 } from "antd";
 import dayjs from "dayjs";
-import { type FC, useMemo, useState } from "react";
+import { type FC, useMemo, useRef, useState } from "react";
 import data from "./data.json";
+import { theme } from "./theme";
 import {
-	expandNumberScope,
+	expandNumberRange,
 	matchIncrementalNumber,
 	matchNumberOnly,
 	matchPentaNumber,
 	matchQuadraNumber,
+	matchRepeatedNumber,
 	matchSearchKeyword,
 	matchTripleNumber,
 } from "./utils";
 
 export const App: FC = () => {
 	const [keyword, setKeyword] = useState("");
-	const [isNumericOnly, setIsNumericOnly] = useState(false);
+
+	const [isSortByLevel, setIsSortByLevel] = useState(true);
+
+	const [isNumericOnly, setIsNumericOnly] = useState(true);
 	const [isExcludeFour, setIsExcludeFour] = useState(false);
-	const [isTripleNumber, setIsTripleNumber] = useState(false);
+	const [isTripleNumber, setIsTripleNumber] = useState(true);
 	const [isIncrementalNumber, setIsIncrementalNumber] = useState(false);
 
+	const contentRef = useRef<HTMLDivElement>(null);
+	const contentSize = useSize(contentRef);
+	const tableScrollY =
+		(contentSize?.height || 500) -
+		(contentRef.current?.querySelector(".ant-table-header")?.clientHeight || 0);
+
 	const dataSource = useMemo(() => {
-		return data.numberScopes
-			.flatMap((numberScope) =>
-				expandNumberScope([numberScope.start]).map((key) => ({
-					...numberScope,
+		return data.numberPool
+			.flatMap((item) =>
+				expandNumberRange(item.range).map((key) => ({
+					...item,
 					key,
 					level: matchPentaNumber(key)
 						? 5
 						: matchQuadraNumber(key)
 						  ? 4
-						  : matchTripleNumber(key)
+						  : matchTripleNumber(key) || matchRepeatedNumber(key)
 							  ? 3
 							  : matchIncrementalNumber(key)
 								  ? 2
 								  : 1,
 				})),
 			)
-			.sort((a, b) => a.key.localeCompare(b.key))
+			.sort((a, b) =>
+				isSortByLevel && a.level !== b.level
+					? b.level - a.level
+					: a.key.localeCompare(b.key),
+			)
 			.filter(
 				(item) =>
 					matchSearchKeyword(item.key, keyword) &&
@@ -55,6 +72,7 @@ export const App: FC = () => {
 			);
 	}, [
 		keyword,
+		isSortByLevel,
 		isNumericOnly,
 		isExcludeFour,
 		isTripleNumber,
@@ -62,21 +80,22 @@ export const App: FC = () => {
 	]);
 
 	return (
-		<ConfigProvider>
-			<Typography.Title>Number Plate</Typography.Title>
-			<Table
-				size="small"
-				virtual
-				scroll={{ y: 800 }}
-				pagination={false}
-				title={() => (
-					<Flex gap={32} align="center">
+		<ConfigProvider theme={theme}>
+			<Layout style={{ height: "100vh" }}>
+				<Layout.Header>
+					<Flex style={{ height: "100%" }} gap={32} align="center">
 						<Input.Search
 							placeholder="Search"
 							style={{ width: 360 }}
 							value={keyword}
 							onChange={(e) => setKeyword(e.target.value)}
 						/>
+						<Checkbox
+							checked={isSortByLevel}
+							onChange={(e) => setIsSortByLevel(e.target.checked)}
+						>
+							靓号榜
+						</Checkbox>
 						<Checkbox
 							checked={isNumericOnly}
 							onChange={(e) => setIsNumericOnly(e.target.checked)}
@@ -101,51 +120,71 @@ export const App: FC = () => {
 						>
 							递增减
 						</Checkbox>
+						<Divider style={{ flex: 1 }} type="vertical" />
+						<Typography.Title level={3}>🎰 Number Plate</Typography.Title>
 					</Flex>
-				)}
-				footer={() => (
-					<Flex justify="end">
+				</Layout.Header>
+				<Layout.Content ref={contentRef} style={{ padding: "0 50px" }}>
+					<Table
+						size="small"
+						virtual
+						scroll={{
+							y: tableScrollY,
+						}}
+						pagination={false}
+						columns={[
+							{
+								title: "号牌",
+								dataIndex: "key",
+								render: (value, record) => (
+									<Typography.Text
+										style={{
+											fontSize: 14 + 4 * record.level,
+											letterSpacing: record.level * 2,
+										}}
+										code
+										type={
+											record.level >= 5
+												? "danger"
+												: record.level >= 4
+												  ? "warning"
+												  : record.level >= 3
+													  ? "success"
+													  : undefined
+										}
+									>
+										{value}
+									</Typography.Text>
+								),
+							},
+							{ title: "牌证发放机关", dataIndex: "organization" },
+							{ title: "号牌种类", dataIndex: "type" },
+							{
+								title: "投放日期",
+								dataIndex: "time",
+								render: (value) => {
+									return (
+										<span
+											style={{
+												opacity:
+													(100 - dayjs().diff(dayjs(value), "days")) / 100,
+											}}
+										>
+											{value.slice(0, 10)}
+										</span>
+									);
+								},
+							},
+						]}
+						dataSource={dataSource}
+					/>
+				</Layout.Content>
+				<Layout.Footer>
+					<Flex>
 						<Typography.Text>共 {dataSource.length} 条</Typography.Text>
 					</Flex>
-				)}
-				columns={[
-					{
-						title: "号牌",
-						dataIndex: "key",
-						render: (value, record) => (
-							<Tag
-								style={{
-									fontFamily: "monospace",
-									fontSize: 14 + 4 * record.level,
-									cursor: "pointer",
-								}}
-								bordered={false}
-								color={record.type.includes("新能源") ? "green" : "blue"}
-							>
-								{value.split("").join(" ")}
-							</Tag>
-						),
-					},
-					{ title: "牌证发放机关", dataIndex: "office" },
-					{ title: "号牌种类", dataIndex: "type" },
-					{
-						title: "投放日期",
-						dataIndex: "time",
-						render: (value) => {
-							return (
-								<span
-									style={{
-										opacity: (100 - dayjs().diff(dayjs(value), "days")) / 100,
-									}}
-								>
-									{value.slice(0, 10)}
-								</span>
-							);
-						},
-					},
-				]}
-				dataSource={dataSource}
-			/>
+				</Layout.Footer>
+			</Layout>
 		</ConfigProvider>
 	);
 };
