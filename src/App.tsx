@@ -1,5 +1,6 @@
-import { useSize } from "ahooks";
+import { useLocalStorageState, useMap, useSize } from "ahooks";
 import {
+	Badge,
 	Checkbox,
 	ConfigProvider,
 	Divider,
@@ -10,7 +11,7 @@ import {
 	Typography,
 } from "antd";
 import dayjs from "dayjs";
-import { type FC, useMemo, useRef, useState } from "react";
+import { type FC, useEffect, useMemo, useRef, useState } from "react";
 import data from "./data.json";
 import { theme } from "./theme";
 import {
@@ -29,6 +30,7 @@ export const App: FC = () => {
 
 	const [isSortByLevel, setIsSortByLevel] = useState(true);
 
+	const [isStatusOnly, setIsStatusOnly] = useState(false);
 	const [isNumericOnly, setIsNumericOnly] = useState(true);
 	const [isExcludeFour, setIsExcludeFour] = useState(false);
 	const [isTripleNumber, setIsTripleNumber] = useState(true);
@@ -39,6 +41,22 @@ export const App: FC = () => {
 	const tableScrollY =
 		(contentSize?.height || 500) -
 		(contentRef.current?.querySelector(".ant-table-header")?.clientHeight || 0);
+
+	/**
+	 * 号牌缓存.
+	 * status: 1: 收藏, -1: 排除.
+	 */
+	const [numberPlateCache = {}, setNumberPlateCache] = useLocalStorageState<{
+		status?: Record<string, number>;
+	}>("number-plate", { defaultValue: {} });
+
+	const [numberPlateMap, numberPlateMapHelper] = useMap<string, number>(
+		Object.entries(numberPlateCache.status || {}),
+	);
+
+	useEffect(() => {
+		setNumberPlateCache({ status: Object.fromEntries(numberPlateMap) });
+	}, [numberPlateMap, setNumberPlateCache]);
 
 	const dataSource = useMemo(() => {
 		return data.numberPool
@@ -55,6 +73,7 @@ export const App: FC = () => {
 							  : matchIncrementalNumber(key)
 								  ? 2
 								  : 1,
+					status: numberPlateMap.get(key),
 				})),
 			)
 			.sort((a, b) =>
@@ -65,6 +84,7 @@ export const App: FC = () => {
 			.filter(
 				(item) =>
 					matchSearchKeyword(item.key, keyword) &&
+					(isStatusOnly ? item.status : true) &&
 					(isNumericOnly ? matchNumberOnly(item.key) : true) &&
 					(isExcludeFour ? !item.key.includes("4") : true) &&
 					(isTripleNumber ? item.level >= 3 : true) &&
@@ -73,11 +93,15 @@ export const App: FC = () => {
 	}, [
 		keyword,
 		isSortByLevel,
+		isStatusOnly,
 		isNumericOnly,
 		isExcludeFour,
 		isTripleNumber,
 		isIncrementalNumber,
+		numberPlateMap,
 	]);
+
+	type DataItem = (typeof dataSource)[number];
 
 	return (
 		<ConfigProvider theme={theme}>
@@ -95,6 +119,12 @@ export const App: FC = () => {
 							onChange={(e) => setIsSortByLevel(e.target.checked)}
 						>
 							靓号榜
+						</Checkbox>
+						<Checkbox
+							checked={isStatusOnly}
+							onChange={(e) => setIsStatusOnly(e.target.checked)}
+						>
+							收藏夹
 						</Checkbox>
 						<Checkbox
 							checked={isNumericOnly}
@@ -125,7 +155,7 @@ export const App: FC = () => {
 					</Flex>
 				</Layout.Header>
 				<Layout.Content ref={contentRef} style={{ padding: "0 50px" }}>
-					<Table
+					<Table<DataItem>
 						size="small"
 						virtual
 						scroll={{
@@ -136,25 +166,51 @@ export const App: FC = () => {
 							{
 								title: "号牌",
 								dataIndex: "key",
-								render: (value, record) => (
-									<Typography.Text
-										style={{
-											fontSize: 14 + 4 * record.level,
-											letterSpacing: record.level * 2,
-										}}
-										code
-										type={
-											record.level >= 5
-												? "danger"
-												: record.level >= 4
-												  ? "warning"
-												  : record.level >= 3
-													  ? "success"
-													  : undefined
+								render: (value: string, record) => (
+									<Badge.Ribbon
+										color="transparent"
+										text={
+											record.status === 1
+												? "⭐️"
+												: record.status === -1
+												  ? "🚫"
+												  : undefined
 										}
 									>
-										{value}
-									</Typography.Text>
+										<Typography.Text
+											style={{
+												fontSize: 14 + 4 * record.level,
+												letterSpacing: record.level * 2,
+												cursor: "pointer",
+												textDecoration:
+													record.status === -1 ? "line-through" : undefined,
+											}}
+											keyboard
+											type={
+												record.status === -1
+													? "secondary"
+													: record.level >= 5
+													  ? "danger"
+													  : record.level >= 4
+														  ? "warning"
+														  : record.level >= 3
+															  ? "success"
+															  : undefined
+											}
+											onClick={() => {
+												const status = numberPlateMapHelper.get(value);
+												if (status === 1) {
+													numberPlateMapHelper.set(value, -1);
+												} else if (status === -1) {
+													numberPlateMapHelper.remove(value);
+												} else {
+													numberPlateMapHelper.set(value, 1);
+												}
+											}}
+										>
+											{value}
+										</Typography.Text>
+									</Badge.Ribbon>
 								),
 							},
 							{ title: "牌证发放机关", dataIndex: "organization" },
@@ -180,8 +236,15 @@ export const App: FC = () => {
 					/>
 				</Layout.Content>
 				<Layout.Footer>
-					<Flex>
-						<Typography.Text>共 {dataSource.length} 条</Typography.Text>
+					<Flex gap={8}>
+						<Typography.Text>共 {dataSource.length} 条</Typography.Text>,
+						<Typography.Text>
+							收藏 {dataSource.filter((item) => item.status === 1).length}
+						</Typography.Text>
+						,
+						<Typography.Text>
+							排除 {dataSource.filter((item) => item.status === -1).length}
+						</Typography.Text>
 					</Flex>
 				</Layout.Footer>
 			</Layout>
