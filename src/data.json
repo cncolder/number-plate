@@ -1,297 +1,255 @@
 {
-	"numberScopes": [
+	"numberPool": [
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AF29200",
-			"end": "AF29299",
+			"range": ["AF29200", "AF29299"],
 			"time": "2024-03-19 18:21"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AD78300",
-			"end": "AD78399",
+			"range": ["AD78300", "AD78399"],
 			"time": "2024-03-19 09:13"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AF79600",
-			"end": "AF79699",
+			"range": ["AF79600", "AF79699"],
 			"time": "2024-03-18 14:55"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AFC9000",
-			"end": "AFC9099",
+			"range": ["AFC9000", "AFC9099"],
 			"time": "2024-03-18 12:45"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AF33300",
-			"end": "AF33399",
+			"range": ["AF33300", "AF33399"],
 			"time": "2024-03-18 11:23"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AD33800",
-			"end": "AD33899",
+			"range": ["AD33800", "AD33899"],
 			"time": "2024-03-18 11:11"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AD80800",
-			"end": "AD80899",
+			"range": ["AD80800", "AD80899"],
 			"time": "2024-03-14 11:36"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AF27000",
-			"end": "AF27099",
+			"range": ["AF27000", "AF27099"],
 			"time": "2024-03-13 15:14"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AF79100",
-			"end": "AF79199",
+			"range": ["AF79100", "AF79199"],
 			"time": "2024-03-12 13:31"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AF89800",
-			"end": "AF89899",
+			"range": ["AF89800", "AF89899"],
 			"time": "2024-03-12 11:35"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AD28500",
-			"end": "AD28599",
+			"range": ["AD28500", "AD28599"],
 			"time": "2024-03-12 10:11"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AFC8100",
-			"end": "AFC8199",
+			"range": ["AFC8100", "AFC8199"],
 			"time": "2024-03-11 12:22"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AFC1700",
-			"end": "AFC1799",
+			"range": ["AFC1700", "AFC1799"],
 			"time": "2024-03-08 19:32"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "ADG7000",
-			"end": "ADG7099",
+			"range": ["ADG7000", "ADG7099"],
 			"time": "2024-03-08 14:57"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AFC6800",
-			"end": "AFC6899",
+			"range": ["AFC6800", "AFC6899"],
 			"time": "2024-03-08 13:19"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AF77900",
-			"end": "AF77999",
+			"range": ["AF77900", "AF77999"],
 			"time": "2024-03-07 20:35"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AF39000",
-			"end": "AF39099",
+			"range": ["AF39000", "AF39099"],
 			"time": "2024-03-05 15:03"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AF77800",
-			"end": "AF77899",
+			"range": ["AF77800", "AF77899"],
 			"time": "2024-03-04 18:59"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AFC2400",
-			"end": "AFC2499",
+			"range": ["AFC2400", "AFC2499"],
 			"time": "2024-03-04 18:57"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AD75600",
-			"end": "AD75699",
+			"range": ["AD75600", "AD75699"],
 			"time": "2024-03-04 12:47"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AFC8600",
-			"end": "AFC8699",
+			"range": ["AFC8600", "AFC8699"],
 			"time": "2024-03-04 10:53"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AF85200",
-			"end": "AF85299",
+			"range": ["AF85200", "AF85299"],
 			"time": "2024-03-01 13:22"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AF76100",
-			"end": "AF76199",
+			"range": ["AF76100", "AF76199"],
 			"time": "2024-02-28 14:21"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AD79400",
-			"end": "AD79499",
+			"range": ["AD79400", "AD79499"],
 			"time": "2024-02-28 13:56"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "ADG7600",
-			"end": "ADG7699",
+			"range": ["ADG7600", "ADG7699"],
 			"time": "2024-02-28 13:32"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AFC8200",
-			"end": "AFC8299",
+			"range": ["AFC8200", "AFC8299"],
 			"time": "2024-02-26 15:32"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AFC7500",
-			"end": "AFC7599",
+			"range": ["AFC7500", "AFC7599"],
 			"time": "2024-02-26 08:39"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AF31500",
-			"end": "AF31599",
+			"range": ["AF31500", "AF31599"],
 			"time": "2024-02-23 16:28"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "ADG2800",
-			"end": "ADG2899",
+			"range": ["ADG2800", "ADG2899"],
 			"time": "2024-02-23 14:45"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AF78600",
-			"end": "AF78699",
+			"range": ["AF78600", "AF78699"],
 			"time": "2024-02-22 18:11"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AF28700",
-			"end": "AF28799",
+			"range": ["AF28700", "AF28799"],
 			"time": "2024-02-21 20:30"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AD28400",
-			"end": "AD28499",
+			"range": ["AD28400", "AD28499"],
 			"time": "2024-02-16 08:47"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AD37100",
-			"end": "AD37199",
+			"range": ["AD37100", "AD37199"],
 			"time": "2024-02-16 08:27"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AF30200",
-			"end": "AF30299",
+			"range": ["AF30200", "AF30299"],
 			"time": "2024-02-09 08:43"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AFC4000",
-			"end": "AFC4099",
+			"range": ["AFC4000", "AFC4099"],
 			"time": "2024-02-09 08:21"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AD34900",
-			"end": "AD34999",
+			"range": ["AD34900", "AD34999"],
 			"time": "2024-02-04 16:08"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "ADG7200",
-			"end": "ADG7299",
+			"range": ["ADG7200", "ADG7299"],
 			"time": "2024-02-04 16:06"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AF89100",
-			"end": "AF89199",
+			"range": ["AF89100", "AF89199"],
 			"time": "2024-01-30 17:50"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AD33200",
-			"end": "AD33299",
+			"range": ["AD33200", "AD33299"],
 			"time": "2024-01-29 14:13"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AF82800",
-			"end": "AF82899",
+			"range": ["AF82800", "AF82899"],
 			"time": "2024-01-26 15:45"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AD81900",
-			"end": "AD81999",
+			"range": ["AD81900", "AD81999"],
 			"time": "2024-01-23 17:54"
 		},
 		{
-			"office": "长春交警支队车管所",
+			"organization": "长春交警支队车管所",
 			"type": "小型新能源汽车",
-			"start": "AF88100",
-			"end": "AF88199",
+			"range": ["AF88100", "AF88199"],
 			"time": "2024-01-22 12:23"
 		}
 	]

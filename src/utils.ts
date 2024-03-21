@@ -2,8 +2,8 @@
  * 展开号码范围
  * @example A100BC ~ A111BC => [A100BC, A101BC, ..., A111BC]
  */
-export const expandNumberScope = (numberScope: string[]) => {
-	const [start, end] = numberScope;
+export const expandNumberRange = (numberRange: string[]) => {
+	const [start, end] = numberRange;
 	const sections = ["", "", "", ""];
 	[...start].forEach((char, i) => {
 		if (char === end[i]) {
@@ -49,6 +49,14 @@ export const matchPentaNumber = (content: string) => {
  */
 export const matchQuadraNumber = (content: string) => {
 	return /([\d])\1{3,}/.test(content);
+};
+
+/**
+ * 重复号
+ * @example 44044 22333
+ */
+export const matchRepeatedNumber = (content: string) => {
+	return content.length - new Set(content).size === 3;
 };
 
 /**
